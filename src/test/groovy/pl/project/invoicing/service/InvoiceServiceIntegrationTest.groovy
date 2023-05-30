@@ -3,18 +3,18 @@ package pl.project.invoicing.service
 import pl.project.invoicing.db.Database
 import pl.project.invoicing.db.memory.InMemoryDatabase
 import pl.project.invoicing.model.Invoice
-import spock.lang.Specification;
+import spock.lang.Specification
 
-import static pl.project.invoicing.TestHelpers.invoice
+import static pl.project.invoicing.helpers.TestHelpers.invoice
 
 class InvoiceServiceIntegrationTest extends Specification {
 
-    private InvoiceService service;
-    private List<Invoice> invoices;
+    private InvoiceService service
+    private List<Invoice> invoices
 
     def setup() {
-        Database db = new InMemoryDatabase();
-        service = new InvoiceService(db);
+        Database db = new InMemoryDatabase()
+        service = new InvoiceService(db)
 
         invoices = (1..12).collect { invoice(it) }
     }
@@ -70,7 +70,7 @@ class InvoiceServiceIntegrationTest extends Specification {
 
     def "deleting not existing invoice is not causing any error"() {
         expect:
-        service.delete(123);
+        service.delete(123)
     }
 
     def "it's possible to update the invoice"() {
