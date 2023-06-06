@@ -1,0 +1,32 @@
+[{
+  "id":0,
+  "date":
+  {
+    "year":2023,
+    "month":"JUNE",
+    "monthValue":6,
+    "dayOfMonth":6,
+    "chronology":
+    {
+      "id":"ISO",
+      "calendarType":"iso8601"
+    },
+    "dayOfWeek":"TUESDAY",
+    "leapYear":false,
+    "dayOfYear":157,
+    "era":"CE"
+  },
+  "buyer":
+  {
+    "taxIdentificationNumber":"4444444444",
+    "address":"ul. Bukowińska 24d/4 02-703 Warszawa, Polska",
+    "name":"iCode Trust 4 Sp. z o.o"
+  },
+  "seller":
+  {
+    "taxIdentificationNumber":"4444444444",
+    "address":"ul. Bukowińska 24d/4 02-703 Warszawa, Polska",
+    "name":"iCode Trust 4 Sp. z o.o"
+  },
+  "entries":[
+    {"description":"Programming course 4","quantity":1,"price":4000,"vatValue":320.0,"vatRate":"VAT_8"}]}]
