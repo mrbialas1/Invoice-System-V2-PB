@@ -52,7 +52,8 @@ abstract class AbstractDatabaseTest extends Specification {
 
     def "can delete all invoices"() {
         given:
-        invoices.forEach({ database.save(it) })
+        database.getAll().isEmpty()
+        //invoices.forEach({ database.save(it) })
 
         when:
         invoices.forEach({ database.delete(it.getId()) })
@@ -71,8 +72,10 @@ abstract class AbstractDatabaseTest extends Specification {
         def originalInvoice = invoices.get(0)
         int id = database.save(originalInvoice)
 
+
         when:
         def result = database.update(id, invoices.get(1))
+
 
         then:
         database.getById(id).get() == invoices.get(1)

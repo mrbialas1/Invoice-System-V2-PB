@@ -71,7 +71,8 @@ public class FileBasedDatabase implements Database {
       filesService.writeLinesToFile(databasePath, invoicesWithoutInvoiceWithGivenId);
 
       allInvoices.removeAll(invoicesWithoutInvoiceWithGivenId);
-      return allInvoices.isEmpty() ? Optional.empty() : Optional.of(jsonService.toObject(allInvoices.get(0), Invoice.class));
+      return allInvoices.isEmpty() ? Optional.empty()
+          : Optional.of(jsonService.toObject(allInvoices.get(0), Invoice.class));
 
     } catch (IOException ex) {
       throw new RuntimeException("Failed to update invoice with id: " + id, ex);
