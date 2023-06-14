@@ -14,7 +14,7 @@ public class FilesService {
   }
 
   public void writeToFile(Path path, String line) throws IOException {
-    Files.write(path, List.of(line),  StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
+    Files.write(path, List.of(line), StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
   }
 
   public void writeLinesToFile(Path path, List<String> lines) throws IOException {
