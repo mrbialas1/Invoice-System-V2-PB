@@ -4,6 +4,8 @@ package pl.project.invoicing.db
 import pl.project.invoicing.model.Invoice
 import spock.lang.Specification
 
+import java.nio.charset.StandardCharsets
+
 import static pl.project.invoicing.helpers.TestHelpers.invoice
 
 abstract class AbstractDatabaseTest extends Specification {
@@ -33,16 +35,15 @@ abstract class AbstractDatabaseTest extends Specification {
 
     def "get all returns all invoices in the database, deleted invoice is not returned"() {
         given:
-        invoices.forEach({ database.save(it) })
+        invoices.forEach({it.id = database.save(it)})
 
         expect:
         database.getAll().size() == invoices.size()
         database.getAll().forEach({ assert it == invoices.get(it.getId() - 1) })
 
         when:
-        //database.delete(1)
-        def firstInvoiceId = database.getAll().get(0).getId()
-        database.delete(firstInvoiceId)
+        database.delete(1)
+
         then:
         database.getAll().size() == invoices.size() - 1
         database.getAll().forEach({ assert it == invoices.get(it.getId() - 1) })

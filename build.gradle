@@ -103,7 +103,7 @@ tasks.withType(JavaCompile) {
 
 group = 'pl.project'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '14'
+//sourceCompatibility = '14'
 
 configurations {
     compileOnly {
@@ -117,7 +117,7 @@ tasks.named('test') {
 
 checkstyle {
     showViolations = true
-    ignoreFailures = false
+    ignoreFailures =false
     maxWarnings = 0
     maxErrors = 0
 }
