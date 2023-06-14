@@ -4,8 +4,6 @@ package pl.project.invoicing.db
 import pl.project.invoicing.model.Invoice
 import spock.lang.Specification
 
-import java.nio.charset.StandardCharsets
-
 import static pl.project.invoicing.helpers.TestHelpers.invoice
 
 abstract class AbstractDatabaseTest extends Specification {
