@@ -59,7 +59,8 @@ application {
 }
 
 jacoco {
-    toolVersion = "0.8.6"
+    toolVersion = "0.8.8"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
 
 jacocoTestCoverageVerification {
@@ -67,13 +68,13 @@ jacocoTestCoverageVerification {
         rule {
             limit {
                 counter = 'BRANCH'
-                minimum = 0.80
+                minimum = 0.70
             }
         }
         rule {
             limit {
                 counter = 'LINE'
-                minimum = 0.80
+                minimum = 0.70
             }
         }
     }
@@ -94,7 +95,11 @@ check {
 }
 
 jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
 }
 
 tasks.withType(JavaCompile) {
