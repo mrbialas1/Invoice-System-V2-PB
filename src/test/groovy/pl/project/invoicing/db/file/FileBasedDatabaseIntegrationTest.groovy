@@ -7,10 +7,11 @@ import pl.project.invoicing.utils.FilesService
 import pl.project.invoicing.utils.JsonService
 
 import java.nio.file.Files
+import java.nio.file.Path
 
 class FileBasedDatabaseIntegrationTest extends AbstractDatabaseTest {
 
-    def dbPath
+    Path dbPath
 
     @Override
     Database getDatabaseInstance() {

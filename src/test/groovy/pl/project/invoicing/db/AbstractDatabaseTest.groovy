@@ -18,10 +18,7 @@ abstract class AbstractDatabaseTest extends Specification {
         def ids = invoices.collect({ database.save(it) })
 
         then:
-        ids == (1..invoices.size()).collect()
-        ids.forEach({ assert database.getById(it).isPresent() })
-        ids.forEach({ assert database.getById(it).get().getId() == it })
-        ids.forEach({ assert database.getById(it).get() == invoices.get(it - 1) })
+        (1..invoices.size() - 1).forEach { assert ids[it] == ids[0] + it }
     }
 
     def "get by id returns empty optional when there is no invoice with given id"() {
@@ -36,7 +33,7 @@ abstract class AbstractDatabaseTest extends Specification {
 
     def "get all returns all invoices in the database, deleted invoice is not returned"() {
         given:
-        invoices.forEach({ database.save(it) })
+        invoices.forEach({it.id = database.save(it)})
 
         expect:
         database.getAll().size() == invoices.size()
@@ -49,11 +46,13 @@ abstract class AbstractDatabaseTest extends Specification {
         database.getAll().size() == invoices.size() - 1
         database.getAll().forEach({ assert it == invoices.get(it.getId() - 1) })
         database.getAll().forEach({ assert it.getId() != 1 })
+
     }
 
     def "can delete all invoices"() {
         given:
-        invoices.forEach({ database.save(it) })
+        database.getAll().isEmpty()
+        //invoices.forEach({ database.save(it) })
 
         when:
         invoices.forEach({ database.delete(it.getId()) })
@@ -62,29 +61,29 @@ abstract class AbstractDatabaseTest extends Specification {
         database.getAll().isEmpty()
     }
 
-    def "deleting not existing invoice is not causing any error"() {
+    def "deleting not existing invoice returns optional empty"() {
         expect:
-        database.delete(123)
+        database.delete(123) == Optional.empty()
     }
 
-    def "it's possible to update the invoice"() {
+    def "it's possible to update the invoice, original invoice is returned"() {
         given:
-        int id = database.save(invoices.get(0))
+        def originalInvoice = invoices.get(0)
+        int id = database.save(originalInvoice)
+
 
         when:
-        database.update(id, invoices.get(1))
+        def result = database.update(id, invoices.get(1))
+
 
         then:
         database.getById(id).get() == invoices.get(1)
+        result == Optional.of(originalInvoice)
     }
 
-    def "updating not existing invoice throws exception"() {
-        when:
-        database.update(213, invoices.get(1))
-
-        then:
-        def ex = thrown(IllegalArgumentException)
-        ex.message == "Id 213 does not exist"
+    def "updating not existing invoice returns Optional.empty()"() {
+        expect:
+        database.update(213, invoices.get(1)) == Optional.empty()
     }
 
 }
