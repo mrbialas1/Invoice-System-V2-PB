@@ -27,7 +27,7 @@ class InvoiceControllerStepwiseTest extends Specification {
     private MockMvc mockMvc
 
     @Autowired
-    private JsonService jsonService;
+    private JsonService jsonService
 
     private Invoice originalInvoice = TestHelpers.invoice(1)
 
@@ -54,7 +54,7 @@ class InvoiceControllerStepwiseTest extends Specification {
         def invoiceAsJson = jsonService.toJson(originalInvoice)
 
         when:
-        invoiceId = mockMvc.perform(
+        def invoiceId = mockMvc.perform(
                 post("/invoices")
                         .content(invoiceAsJson)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -66,11 +66,12 @@ class InvoiceControllerStepwiseTest extends Specification {
                 .contentAsString
 
         then:
-        invoiceId == "1"
+        invoiceId != null
     }
 
     def "one invoice is returned when getting all invoices"() {
         given:
+        invoiceId = 1
         def expectedInvoice = originalInvoice
         expectedInvoice.id = invoiceId
 

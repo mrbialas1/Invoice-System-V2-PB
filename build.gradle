@@ -43,7 +43,8 @@ dependencies {
     testImplementation 'org.codehaus.groovy:groovy-all:3.0.16'
 
     // Use the awesome Spock testing and specification framework even with Java
-    testImplementation 'org.spockframework:spock-core:2.4-M1-groovy-3.0'
+    testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
+    testImplementation 'org.spockframework:spock-spring:2.0-groovy-3.0'
     testImplementation 'junit:junit:4.13.2'
 
     //Lombok

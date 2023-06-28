@@ -1,6 +1,5 @@
 package pl.project.invoicing.service
 
-
 import pl.project.invoicing.db.Database
 import spock.lang.Specification
 
