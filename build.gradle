@@ -1,10 +1,11 @@
 buildscript {
     ext {
         lombokVersion = '1.18.26'
-        spockVersion = '2.0-groovy-2.5' +
-                ''
+        spockVersion = '2.0-groovy-2.5'
         springBootVersion = '2.4.2'
         springDependencyManagementVersion = '1.0.11.RELEASE'
+        springFoxStarterVersion = '3.0.0'
+        springFoxUiVersion = '3.0.0'
     }
 }
 
@@ -35,6 +36,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "org.spockframework:spock-core:${spockVersion}"
     testImplementation "org.spockframework:spock-spring:${spockVersion}"
+
+    implementation "io.springfox:springfox-boot-starter:${springFoxStarterVersion}"
+
+    implementation "io.springfox:springfox-swagger-ui:${springFoxUiVersion}"
 }
 
 jacocoTestCoverageVerification {

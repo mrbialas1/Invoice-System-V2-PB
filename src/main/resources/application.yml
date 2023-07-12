@@ -14,5 +14,5 @@ invoicing-system:
           boot: INFO
       pl:
         project:
-          invoicing: WARN
+          invoicing: INFO
           invoicing.db: DEBUG
