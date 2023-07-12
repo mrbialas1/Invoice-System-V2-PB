@@ -2,7 +2,6 @@ package pl.project.invoicing.service;
 
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.project.invoicing.db.Database;
 import pl.project.invoicing.model.Invoice;
@@ -12,7 +11,7 @@ public class InvoiceService {
 
   private final Database database;
 
-  public InvoiceService(@Qualifier("fileBasedDatabase") Database database) {
+  public InvoiceService(Database database) {
     this.database = database;
   }
 

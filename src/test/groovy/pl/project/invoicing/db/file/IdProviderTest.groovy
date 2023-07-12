@@ -12,7 +12,7 @@ class IdProviderTest extends Specification {
 
     def "next id starts from 1 if file was empty"() {
         given:
-        IdService idService = new IdService(nextIdDbPath, new FilesService())
+        IdProvider idService = new IdProvider(nextIdDbPath, new FilesService())
 
         expect:
         ['1'] == Files.readAllLines(nextIdDbPath)
@@ -33,7 +33,7 @@ class IdProviderTest extends Specification {
     def "next id starts from last number if file was not empty"() {
         given:
         Files.writeString(nextIdDbPath, "17")
-        IdService idService = new IdService(nextIdDbPath, new FilesService())
+        IdProvider idService = new IdProvider(nextIdDbPath, new FilesService())
 
         expect:
         ['17'] == Files.readAllLines(nextIdDbPath)
