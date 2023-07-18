@@ -5,6 +5,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import pl.project.invoicing.model.Company
 import pl.project.invoicing.model.Invoice
 import pl.project.invoicing.service.TaxCalculatorResult
 import pl.project.invoicing.utils.JsonService
@@ -31,11 +32,11 @@ class AbstractControllerTest extends Specification {
         getAllInvoices().each { invoice -> deleteInvoice(invoice.id) }
     }
 
-    int addInvoiceAndReturnId(String invoiceAsJson) {
+    int addInvoiceAndReturnId(Invoice invoice) {
         Integer.valueOf(
                 mockMvc.perform(
                         post(INVOICE_ENDPOINT)
-                                .content(invoiceAsJson)
+                                .content(jsonService.toJson(invoice))
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                         .andExpect(status().isOk())
@@ -58,7 +59,7 @@ class AbstractControllerTest extends Specification {
     List<Invoice> addUniqueInvoices(int count) {
         (1..count).collect { id ->
             def invoice = invoice(id)
-            invoice.id = addInvoiceAndReturnId(jsonService.toJson(invoice))
+            invoice.id = addInvoiceAndReturnId(invoice)
             return invoice
         }
     }
@@ -82,13 +83,16 @@ class AbstractControllerTest extends Specification {
         jsonService.toJson(invoice(id))
     }
 
-    TaxCalculatorResult calculateTax(String taxIdentificationNumber) {
-        def response = mockMvc.perform(get("$TAX_CALCULATOR_ENDPOINT/$taxIdentificationNumber"))
+    TaxCalculatorResult calculateTax(Company company) {
+        def response = mockMvc.perform(
+                post("$TAX_CALCULATOR_ENDPOINT")
+                        .content(jsonService.toJson(company))
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
                 .andExpect(status().isOk())
                 .andReturn()
                 .response
                 .contentAsString
-
         jsonService.toObject(response, TaxCalculatorResult)
     }
 
