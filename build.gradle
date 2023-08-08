@@ -1,5 +1,6 @@
 buildscript {
     ext {
+        flywayVersion = '7.6.0'
         lombokVersion = '1.18.26'
         spockVersion = '2.0-groovy-2.5'
         springBootVersion = '2.4.2'
@@ -40,6 +41,11 @@ dependencies {
     implementation "io.springfox:springfox-boot-starter:${springFoxStarterVersion}"
 
     implementation "io.springfox:springfox-swagger-ui:${springFoxUiVersion}"
+
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation "org.flywaydb:flyway-core:${flywayVersion}"
+    runtimeOnly 'com.h2database:h2:1.4.200'
+    runtimeOnly 'org.postgresql:postgresql:42.5.4'
 }
 
 jacocoTestCoverageVerification {
