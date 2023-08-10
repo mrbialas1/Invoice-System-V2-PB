@@ -1,6 +1,5 @@
 server:
-  port: 7000
-
+  port: 5555
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/invoicing
@@ -9,12 +8,6 @@ spring:
     driver-class-name: org.postgresql.Driver
   flyway:
     enabled: true
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
 
 invoicing-system:
   database: memory
-  database.directory: db
-  database.invoices.file: invoices.txt
-  database.id.file: id.txt

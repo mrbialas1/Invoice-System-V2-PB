@@ -1,0 +1,13 @@
+ALTER TABLE IF EXIST public.invoices
+    ADD CONSTRAINT seller_fkey FOREIGN KEY (seller)
+    REFERENCES public.company (id) MATCH SIMPLE
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+    NOT VALID;
+
+ALTER TABLE IF EXIST public.invoices
+    ADD CONSTRAINT buyer_fkey FOREIGN KEY (buyer)
+    REFERENCES public.company (id) MATCH SIMPLE
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+    NOT VALID;
