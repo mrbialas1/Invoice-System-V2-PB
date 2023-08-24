@@ -19,6 +19,7 @@ import pl.project.invoicing.utils.JsonService;
 public class DatabaseConfiguration {
 
   @Bean
+  @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "file")
   public IdProvider idProvider(
       FilesService filesService,
       @Value("${invoicing-system.database.directory}") String databaseDirectory,
@@ -28,8 +29,8 @@ public class DatabaseConfiguration {
     return new IdProvider(idFilePath, filesService);
   }
 
-  @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "file")
   @Bean
+  @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "file")
   public Database fileBasedDatabase(
       IdProvider idProvider,
       FilesService filesService,
@@ -42,8 +43,8 @@ public class DatabaseConfiguration {
     return new FileBasedDatabase(databaseFilePath, idProvider, filesService, jsonService);
   }
 
-  @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "memory")
   @Bean
+  @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "memory")
   public Database inMemoryDatabase() {
     log.trace("Creating in-memory database");
     log.debug("Creating in-memory database");
