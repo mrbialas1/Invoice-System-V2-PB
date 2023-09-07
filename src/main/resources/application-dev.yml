@@ -1,14 +1,6 @@
 server:
   port: 7777
 
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5433/invoicing
-    username: postgres
-    password: admin
-    driver-class-name: org.postgresql.Driver
-  flyway:
-    enabled: true
   mvc:
     path match:
       matching-strategy: ant_path_matcher
@@ -18,3 +10,12 @@ invoicing-system:
   database.directory: db
   database.invoices.file: invoices.txt
   database.id.file: id.txt
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/invoicing
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true

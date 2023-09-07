@@ -1,12 +1,12 @@
 buildscript {
     ext {
-        flywayVersion = '7.6.0'
         lombokVersion = '1.18.26'
         spockVersion = '2.0-groovy-2.5'
         springBootVersion = '2.4.2'
         springDependencyManagementVersion = '1.0.11.RELEASE'
         springFoxStarterVersion = '3.0.0'
         springFoxUiVersion = '3.0.0'
+        flywayVersion = '7.6.0'
     }
 }
 
@@ -28,6 +28,8 @@ dependencies {
 
     compileOnly("org.projectlombok:lombok:${lombokVersion}")
 
+    implementation "org.flywaydb:flyway-core:${flywayVersion}"
+
     implementation "org.springframework.boot:spring-boot-starter-web"
 
     testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
@@ -42,8 +44,8 @@ dependencies {
 
     implementation "io.springfox:springfox-swagger-ui:${springFoxUiVersion}"
 
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    implementation "org.flywaydb:flyway-core:${flywayVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-jdbc"
+
     runtimeOnly 'com.h2database:h2:1.4.200'
     runtimeOnly 'org.postgresql:postgresql:42.2.19'
 }
@@ -66,7 +68,7 @@ jacocoTestCoverageVerification {
 
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: 'pl/futurecollars/invoicing/InvoiceApplication.class')
+            fileTree(dir: it, exclude: 'pl/project/invoicing/InvoiceApplication.class')
         }))
     }
 }
