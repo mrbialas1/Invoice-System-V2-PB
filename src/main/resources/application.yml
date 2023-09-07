@@ -1,25 +1,45 @@
+#server:
+#  port: 6666
+#
+#invoicing-system:
+#  database: memory
+#  database.directory: db
+#  database.invoices.file: invoices.txt
+#  database.id.file: id.txt
+#
+#  logging:
+#    level:
+#      org:
+#        springframework:
+#          boot: INFO
+#      pl:
+#        project:
+#          invoicing: INFO
+#          invoicing.db: DEBUG
+#
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/invoicing
+#    username: postgres
+#    password: admin
+#    driver-class-name: org.postgresql.Driver
+
+
 server:
-  port: 6666
+  port: 7777
 
-invoicing-system:
-  database: memory
-  database.directory: db
-  database.invoices.file: invoices.txt
-  database.id.file: id.txt
-
-  logging:
-    level:
-      org:
-        springframework:
-          boot: INFO
-      pl:
-        project:
-          invoicing: INFO
-          invoicing.db: DEBUG
+logging:
+  level:
+    org:
+      springframework:
+        boot: INFO
+    pl:
+      project:
+        invoicing: INFO
+        invoicing.db: DEBUG
 
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/invoicing
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
+  profiles:
+    active: memory
+  flyway:
+    enabled: false
