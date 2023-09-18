@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import pl.project.invoicing.db.file.FileBasedDatabase;
 import pl.project.invoicing.db.file.IdProvider;
 import pl.project.invoicing.db.memory.InMemoryDatabase;
+import pl.project.invoicing.db.sql.SqlDatabase;
 import pl.project.invoicing.utils.FilesService;
 import pl.project.invoicing.utils.JsonService;
 
@@ -41,6 +43,12 @@ public class DatabaseConfiguration {
     log.debug("Creating in-file database");
     Path databaseFilePath = Files.createTempFile(databaseDirectory, invoicesFile);
     return new FileBasedDatabase(databaseFilePath, idProvider, filesService, jsonService);
+  }
+
+  @Bean
+  @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "sql")
+  public Database sqlDatabase(JdbcTemplate jdbcTemplate) {
+    return new SqlDatabase(jdbcTemplate);
   }
 
   @Bean
