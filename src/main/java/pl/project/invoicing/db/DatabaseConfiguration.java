@@ -13,6 +13,8 @@ import pl.project.invoicing.db.file.FileBasedDatabase;
 import pl.project.invoicing.db.file.IdProvider;
 import pl.project.invoicing.db.memory.InMemoryDatabase;
 import pl.project.invoicing.db.sql.SqlDatabase;
+import pl.project.invoicing.db.sql.jpa.InvoiceRepository;
+import pl.project.invoicing.db.sql.jpa.JpaDatabase;
 import pl.project.invoicing.utils.FilesService;
 import pl.project.invoicing.utils.JsonService;
 
@@ -60,6 +62,12 @@ public class DatabaseConfiguration {
     log.warn("Creating in-memory database");
     log.error("Creating in-memory database");
     return new InMemoryDatabase();
+  }
+
+  @Bean
+  @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "jpa")
+  public Database jpaDatabase(InvoiceRepository invoiceRepository) {
+    return new JpaDatabase(invoiceRepository);
   }
 
 }
