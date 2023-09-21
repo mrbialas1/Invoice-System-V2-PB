@@ -1,5 +1,6 @@
 package pl.project.invoicing.helpers
 
+import pl.project.invoicing.model.Car
 import pl.project.invoicing.model.Company
 import pl.project.invoicing.model.Invoice
 import pl.project.invoicing.model.InvoiceEntry
@@ -26,6 +27,12 @@ class TestHelpers {
                 .netPrice(BigDecimal.valueOf(id * 1000).setScale(2))
                 .vatValue(BigDecimal.valueOf(id * 1000 * 0.08).setScale(2))
                 .vatRate(Vat.VAT_8)
+                .expenseRelatedToCar(id % 2 == 0 ? null :
+                        Car.builder()
+                                .registrationNumber("XYZ")
+                                .personalUse(false)
+                                .build()
+                )
                 .build()
     }
 
