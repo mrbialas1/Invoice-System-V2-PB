@@ -7,6 +7,7 @@ buildscript {
         springFoxStarterVersion = '3.0.0'
         springFoxUiVersion = '3.0.0'
         flywayVersion = '7.6.0'
+        mongoVersion = '3.12.8'
     }
 }
 
@@ -46,6 +47,7 @@ dependencies {
 
     implementation "org.springframework.boot:spring-boot-starter-jdbc"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation "org.mongodb:mongo-java-driver:${mongoVersion}"
 
     runtimeOnly 'com.h2database:h2:1.4.200'
     runtimeOnly 'org.postgresql:postgresql:42.2.19'
@@ -69,12 +71,12 @@ jacocoTestCoverageVerification {
 
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: 'pl/project/invoicing/InvoiceApplication.class')
+            fileTree(dir: it, exclude: ['pl/project/invoicing/InvoiceApplication.class', 'pl/project/invoicing/db/DatabaseConfiguration.class'])
         }))
     }
 }
 
-test {
+check {
     finalizedBy jacocoTestReport
 }
 
@@ -133,9 +135,10 @@ task testWithSQLDatabase(type: Test) {
     systemProperty 'spring.profiles.active', 'sql'
 }
 
-task testWithPostgreSqlDatabase(type: Test) {
-    systemProperty 'spring.profiles.active', 'sql-pg'
+task testWithMongoDatabase(type: Test) {
+    systemProperty 'spring.profiles.active', 'mongo'
 }
 
 check.dependsOn testWithFileDatabase
 check.dependsOn testWithFileDatabase
+check.dependsOn testWithMongoDatabase
