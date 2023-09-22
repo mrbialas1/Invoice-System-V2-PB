@@ -3,7 +3,7 @@ package pl.project.invoicing
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import pl.project.invoicing.db.memory.InMemoryDatabase
-import pl.project.invoicing.service.InvoiceService
+import pl.project.invoicing.service.invoice.InvoiceService
 import spock.lang.Specification
 
 @SpringBootTest

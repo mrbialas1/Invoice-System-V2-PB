@@ -3,6 +3,7 @@ package pl.project.invoicing.service
 import pl.project.invoicing.db.Database
 import pl.project.invoicing.db.memory.InMemoryDatabase
 import pl.project.invoicing.model.Invoice
+import pl.project.invoicing.service.invoice.InvoiceService
 import spock.lang.Specification
 
 import static pl.project.invoicing.helpers.TestHelpers.invoice

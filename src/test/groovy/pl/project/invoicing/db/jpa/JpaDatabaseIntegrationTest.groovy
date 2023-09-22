@@ -5,8 +5,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.annotation.IfProfileValue
 import pl.project.invoicing.db.AbstractDatabaseTest
 import pl.project.invoicing.db.Database
-import pl.project.invoicing.db.sql.jpa.InvoiceRepository
-import pl.project.invoicing.db.sql.jpa.JpaDatabase
 
 @DataJpaTest
 @IfProfileValue(name = "spring.profiles.active", value = "jpa")
