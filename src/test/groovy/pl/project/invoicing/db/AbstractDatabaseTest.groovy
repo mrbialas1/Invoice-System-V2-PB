@@ -25,7 +25,7 @@ abstract class AbstractDatabaseTest extends Specification {
         def ids = invoices.collect { it.id = database.save(it) }
 
         then:
-        (1..invoices.size() - 1).forEach { assert ids[it] == ids[0] + it }
+        (1L..invoices.size() - 1).forEach { assert ids[it] == ids[0] + it }
     }
 
     def "invoice should have id set to correct value"() {
@@ -139,6 +139,7 @@ abstract class AbstractDatabaseTest extends Specification {
         invoice.entries.forEach {
             it.id = null
             it.expenseRelatedToCar?.id = null
+
         }
         return invoice
     }
