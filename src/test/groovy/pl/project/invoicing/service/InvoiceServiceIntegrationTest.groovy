@@ -16,7 +16,7 @@ class InvoiceServiceIntegrationTest extends Specification {
         Database db = new InMemoryDatabase()
         service = new InvoiceService(db)
 
-        invoices = (1..12).collect { invoice(it) }
+        invoices = (1L..12).collect { invoice(it) }
     }
 
     def "should save invoices returning sequential id, invoice should have id set to correct value, get by id returns saved invoice"() {
@@ -43,14 +43,14 @@ class InvoiceServiceIntegrationTest extends Specification {
 
         expect:
         service.getAll().size() == invoices.size()
-        service.getAll().forEach { assert it == invoices.get(it.getId() - 1) }
+        service.getAll().forEach { assert it == invoices.get((int)it.getId() - 1) }
 
         when:
         service.delete(1)
 
         then:
         service.getAll().size() == invoices.size() - 1
-        service.getAll().forEach { assert it == invoices.get(it.getId() - 1) }
+        service.getAll().forEach { assert it == invoices.get((int)it.getId() - 1) }
         service.getAll().forEach { assert it.getId() != 1 }
     }
 
@@ -73,7 +73,7 @@ class InvoiceServiceIntegrationTest extends Specification {
     def "it's possible to update the invoice, previous invoice is returned"() {
         given:
         def originalInvoice = invoices.get(0)
-        int id = service.save(originalInvoice)
+        long id = service.save(originalInvoice)
 
         when:
         def result = service.update(id, invoices.get(1))

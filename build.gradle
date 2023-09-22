@@ -45,6 +45,7 @@ dependencies {
     implementation "io.springfox:springfox-swagger-ui:${springFoxUiVersion}"
 
     implementation "org.springframework.boot:spring-boot-starter-jdbc"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     runtimeOnly 'com.h2database:h2:1.4.200'
     runtimeOnly 'org.postgresql:postgresql:42.2.19'
