@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.project.invoicing.model.Company;
-import pl.project.invoicing.service.TaxCalculatorResult;
+import pl.project.invoicing.service.tax.TaxCalculatorResult;
 
 @RequestMapping(value = "tax", produces = {"application/json;charset=UTF-8"})
 @Api(tags = {"tax-controller"})

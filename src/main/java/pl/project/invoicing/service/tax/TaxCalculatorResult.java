@@ -1,4 +1,4 @@
-package pl.project.invoicing.service;
+package pl.project.invoicing.service.tax;
 
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
