@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import pl.project.invoicing.model.Company;
-import pl.project.invoicing.service.TaxCalculatorResult;
-import pl.project.invoicing.service.TaxCalculatorService;
+import pl.project.invoicing.service.tax.TaxCalculatorResult;
+import pl.project.invoicing.service.tax.TaxCalculatorService;
 
 @RestController
 @AllArgsConstructor

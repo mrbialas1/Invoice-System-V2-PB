@@ -1,4 +1,4 @@
-package pl.project.invoicing.controller.invoice;
+package pl.project.invoicing.controller.company;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -6,42 +6,42 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import pl.project.invoicing.model.Invoice;
-import pl.project.invoicing.service.invoice.InvoiceService;
+import pl.project.invoicing.model.Company;
+import pl.project.invoicing.service.company.CompanyService;
 
 @RestController
 @AllArgsConstructor
-public class InvoiceController implements InvoiceApi {
+public class CompanyController implements CompanyApi {
 
-  private final InvoiceService invoiceService;
+  private final CompanyService companyService;
 
   @Override
-  public List<Invoice> getAll() {
-    return invoiceService.getAll();
+  public List<Company> getAll() {
+    return companyService.getAll();
   }
 
   @Override
-  public long add(@RequestBody Invoice invoice) {
-    return invoiceService.save(invoice);
+  public long add(@RequestBody Company company) {
+    return companyService.save(company);
   }
 
   @Override
-  public ResponseEntity<Invoice> getById(@PathVariable int id) {
-    return invoiceService.getById(id)
-        .map(invoice -> ResponseEntity.ok().body(invoice))
+  public ResponseEntity<Company> getById(@PathVariable int id) {
+    return companyService.getById(id)
+        .map(company -> ResponseEntity.ok().body(company))
         .orElse(ResponseEntity.notFound().build());
   }
 
   @Override
   public ResponseEntity<?> deleteById(@PathVariable int id) {
-    return invoiceService.delete(id)
+    return companyService.delete(id)
         .map(name -> ResponseEntity.noContent().build())
         .orElse(ResponseEntity.notFound().build());
   }
 
   @Override
-  public ResponseEntity<?> update(@PathVariable int id, @RequestBody Invoice invoice) {
-    return invoiceService.update(id, invoice)
+  public ResponseEntity<?> update(@PathVariable int id, @RequestBody Company company) {
+    return companyService.update(id, company)
         .map(name -> ResponseEntity.noContent().build())
         .orElse(ResponseEntity.notFound().build());
   }

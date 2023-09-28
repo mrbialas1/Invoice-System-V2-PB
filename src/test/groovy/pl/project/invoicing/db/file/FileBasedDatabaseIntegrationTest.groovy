@@ -3,6 +3,7 @@ package pl.project.invoicing.db.file
 import pl.project.invoicing.db.AbstractDatabaseTest
 import pl.project.invoicing.db.Database
 import pl.project.invoicing.helpers.TestHelpers
+import pl.project.invoicing.model.Invoice
 import pl.project.invoicing.utils.FilesService
 import pl.project.invoicing.utils.JsonService
 
@@ -21,7 +22,7 @@ class FileBasedDatabaseIntegrationTest extends AbstractDatabaseTest {
         def idService = new IdProvider(idPath, filesService)
 
         dbPath = File.createTempFile('invoices', '.txt').toPath()
-        new FileBasedDatabase(dbPath, idService, filesService, new JsonService())
+        new FileBasedDatabase(dbPath, idService, filesService, new JsonService(), Invoice)
     }
 
     def "file based database writes invoices to correct file"() {
