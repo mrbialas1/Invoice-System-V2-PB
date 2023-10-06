@@ -5,6 +5,7 @@
     <th id='nameHeader'>Name</th>
     <th id='pensionInsuranceHeader'>Pension insurance</th>
     <th id='healthInsuranceHeader'>Health insurance</th>
+    <th></th>
   </tr>
   <tr class="companyRow" *ngFor="let company of companies">
     <td *ngIf="!company.editMode" id="taxId">{{company.taxIdentificationNumber}}</td>
@@ -18,11 +19,11 @@
     <td *ngIf="company.editMode"><input [(ngModel)]="company.editedCompany.name" type="text" class="form-control"
                                         name="name"></td>
 
-    <td *ngIf="!company.editMode" id="pensionInsurance">{{company.healthInsurance}}</td>
+    <td *ngIf="!company.editMode" id="pensionInsurance">{{company.pensionInsurance}}</td>
     <td *ngIf="company.editMode"><input [(ngModel)]="company.editedCompany.pensionInsurance" type="text"
                                         class="form-control" name="pensionInsurance"></td>
 
-    <td *ngIf="!company.editMode" id="healthInsurance">{{company.pensionInsurance}}</td>
+    <td *ngIf="!company.editMode" id="healthInsurance">{{company.healthInsurance}}</td>
     <td *ngIf="company.editMode"><input [(ngModel)]="company.editedCompany.healthInsurance" type="text"
                                         class="form-control" name="healthInsurance"></td>
 
@@ -30,6 +31,8 @@
       <button *ngIf="!company.editMode" (click)="triggerUpdate(company)" class="btn btn-secondary">Edit</button>
       <span *ngIf="!company.editMode">&nbsp;</span>
       <button *ngIf="!company.editMode" (click)="deleteCompany(company)" class="btn btn-danger">Delete</button>
+
+
       <button *ngIf="company.editMode" (click)="updateCompany(company)" class="btn btn-primary">Update
         company</button>
       <span *ngIf="company.editMode">&nbsp;</span>
@@ -37,6 +40,7 @@
               class="btn btn-secondary">Cancel</button>
     </td>
   </tr>
+
   <tr>
     <td><input [(ngModel)]="newCompany.taxIdentificationNumber" type="text" class="form-control"
                name="taxIdentificationNumber"></td>

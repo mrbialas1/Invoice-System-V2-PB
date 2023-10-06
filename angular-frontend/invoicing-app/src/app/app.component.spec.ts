@@ -32,8 +32,8 @@ let component: AppComponent;
     const app = fixture.componentInstance;
     component.ngOnInit()
     fixture.detectChanges();
-    expect(fixture.nativeElement.innerText).toContain("111-111-11-11	ul. First 1	First Ltd.	1111.11	111.11")
-    expect(fixture.nativeElement.innerText).toContain("222-222-22-22	ul. Second 2	Second Ltd.	2222.22	222.22")
+    expect(fixture.nativeElement.innerText).toContain("111-111-11-11	ul. First 1	First Ltd.	111.11	1111.11")
+    expect(fixture.nativeElement.innerText).toContain("222-222-22-22	ul. Second 2	Second Ltd.	222.22	2222.22")
     expect(component.companies.length).toBe(2)
     expect(component.companies).toBe(MockCompanyService.companies)
   });
