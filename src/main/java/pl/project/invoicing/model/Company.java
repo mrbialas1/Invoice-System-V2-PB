@@ -39,10 +39,4 @@ public class Company implements WithId {
   @ApiModelProperty(value = "Health insurance amount", required = true, example = "521.33")
   private BigDecimal healthInsurance = BigDecimal.ZERO;
 
-  public Company(String taxIdentificationNumber, String address, String name) {
-    this.taxIdentificationNumber = taxIdentificationNumber;
-    this.address = address;
-    this.name = name;
-  }
-
 }
