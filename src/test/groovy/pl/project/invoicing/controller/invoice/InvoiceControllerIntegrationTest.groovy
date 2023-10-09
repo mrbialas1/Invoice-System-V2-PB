@@ -2,7 +2,9 @@ package pl.project.invoicing.controller.invoice
 
 import org.springframework.http.MediaType
 import pl.project.invoicing.controller.AbstractControllerTest
+import spock.lang.Unroll
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
@@ -10,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static pl.project.invoicing.helpers.TestHelpers.invoice
 import static pl.project.invoicing.helpers.TestHelpers.resetIds
 
+@Unroll
 class InvoiceControllerIntegrationTest extends AbstractControllerTest{
 
     def "empty array is returned when no invoices were added"() {
@@ -30,8 +33,10 @@ class InvoiceControllerIntegrationTest extends AbstractControllerTest{
         given:
         def numberOfInvoices = 3
         def expectedInvoices = addUniqueInvoices(numberOfInvoices)
+
         when:
         def invoices = getAllInvoices()
+
         then:
         invoices.size() == numberOfInvoices
         resetIds(invoices) == resetIds(expectedInvoices)
@@ -41,8 +46,10 @@ class InvoiceControllerIntegrationTest extends AbstractControllerTest{
         given:
         def expectedInvoices = addUniqueInvoices(5)
         def expectedInvoice = expectedInvoices.get(2)
+
         when:
         def invoice = getInvoiceById(expectedInvoice.getId())
+
         then:
         resetIds(invoice) == resetIds(expectedInvoice)
     }
@@ -60,6 +67,7 @@ class InvoiceControllerIntegrationTest extends AbstractControllerTest{
         where:
         id << [-100, -2, -1, 0, 168, 1256]
     }
+
     def "404 is returned when invoice id is not found when deleting invoice [#id]"() {
         given:
         addUniqueInvoices(11)
@@ -67,12 +75,14 @@ class InvoiceControllerIntegrationTest extends AbstractControllerTest{
         expect:
         mockMvc.perform(
                 delete("$INVOICE_ENDPOINT/$id")
+                        .with(csrf())
         )
                 .andExpect(status().isNotFound())
 
         where:
         id << [-100, -2, -1, 0, 12, 13, 99, 102, 1000]
     }
+
     def "404 is returned when invoice id is not found when updating invoice [#id]"() {
         given:
         addUniqueInvoices(11)
@@ -82,11 +92,14 @@ class InvoiceControllerIntegrationTest extends AbstractControllerTest{
                 put("$INVOICE_ENDPOINT/$id")
                         .content(invoiceAsJson(1))
                         .contentType(MediaType.APPLICATION_JSON)
+                        .with(csrf())
         )
                 .andExpect(status().isNotFound())
+
         where:
         id << [-100, -2, -1, 0, 12, 13, 99, 102, 1000]
     }
+
     def "invoice can be modified"() {
         given:
         def id = addInvoiceAndReturnId(invoice(4))
@@ -98,15 +111,18 @@ class InvoiceControllerIntegrationTest extends AbstractControllerTest{
                 put("$INVOICE_ENDPOINT/$id")
                         .content(jsonService.toJson(updatedInvoice))
                         .contentType(MediaType.APPLICATION_JSON)
+                        .with(csrf())
         )
                 .andExpect(status().isNoContent())
         def invoiceFromDbAfterUpdate = resetIds(getInvoiceById(id)).toString()
         def expectedInvoice = resetIds(updatedInvoice).toString()
         invoiceFromDbAfterUpdate == expectedInvoice
     }
+
     def "invoice can be deleted"() {
         given:
         def invoices = addUniqueInvoices(69)
+
         expect:
         invoices.each { invoice -> deleteInvoice(invoice.getId()) }
         getAllInvoices().size() == 0
