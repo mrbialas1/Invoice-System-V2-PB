@@ -38,7 +38,7 @@ public class SpringFoxConfig {
             new Contact(
                 "Piotr Bialas",
                 "https://piotr.bialas.com",
-                "piotr@bialas.com")
+                "mr.piotr.bialas@gmail.com")
         )
         .build();
   }
